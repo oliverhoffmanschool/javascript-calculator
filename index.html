@@ -1,303 +1,123 @@
-/* finished except for small responsive details like mobille font sizes
-*/
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol,
-ul {
-  list-style: none;
-}
-blockquote,
-q {
-  quotes: none;
-}
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-  content: "";
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-#page,
-body {
-  background-color: #575353;
-}
-#page {
-  width: calc(100vw - 60px);
-  height: calc(100vh - 60px);
-  display: grid;
-  position: fixed;
-  left: 30px;
-  top: 30px;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 30px;
-}
-#page button {
-  cursor: pointer;
-}
-#page > * {
-  border: none;
-  font-size: 40px;
-  font-family: "Rubik", sans-serif;
-}
-#output {
-  grid-column: 1 / 5;
-  grid-row: 1 / 2;
-  background-color: #b7b7b7;
-  border-radius: 20px;
-  z-index: 100;
-  text-align: right;
-  display: flex;
-  align-items: center;
-  justify-content: end;
-  transition: ease-in 0.5s;
-}
-#outputbox {
-  padding-right: 30px;
-  font-size: 100px;
-}
-#clear {
-  grid-row: 2 / 3;
-  grid-column: 1 / 2;
-}
-#delete {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-}
-#multiplication {
-  grid-row: 4 / 5;
-  grid-column: 4 / 5;
-}
-#minus {
-  grid-column: 4/ 5;
-  grid-row: 3 / 4;
-}
-#plus {
-  grid-column: 4 / 5;
-  grid-row: 2 / 3;
-}
-#zero {
-  grid-column: 1 / 4;
-  grid-row: 6 / 7;
-}
-#enter {
-  grid-row: 6 / 7;
-  grid-column: 4 / 5;
-}
-#division {
-  grid-row: 5 / 6;
-  grid-column: 4 / 5;
-}
-#dot {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
-}
-.pushable {
-  position: relative;
-  border: none;
-  background: transparent;
-  padding: 0;
-  cursor: pointer;
-  outline-offset: 4px;
-  transition: filter 250ms;
-}
-.shadow {
-  position: absolute;
-  top: 6px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 30px;
-  background: hsl(0deg 0% 0% / 0.25);
-  will-change: transform;
-  transform: translateY(2px);
-  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-}
-.edge {
-  position: absolute;
-  bottom: 0;
-
-  left: 0;
-  width: 100%;
-  height: 90%;
-  border-radius: 30px;
-  background-color: hsl(0, 0%, 77%);
-}
-button:focus {
-  outline: none;
-}
-.front {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 12px 42px;
-  border-radius: 30px;
-  height: 9vh;
-  color: white;
-  background: hsl(0, 0%, 43%);
-  will-change: transform;
-  transform: translateY(-4px);
-  transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
-}
-#enterfront {
-  height: 9vh;
-}
-.pushable:hover {
-  filter: brightness(110%);
-}
-.pushable:hover .front {
-  transform: translateY(-6px);
-  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-}
-.pushable:active .front {
-  transform: translateY(-2px);
-  transition: transform 34ms;
-}
-.pushable:hover .shadow {
-  transform: translateY(4px);
-  transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
-}
-.pushable:active .shadow {
-  transform: translateY(1px);
-  transition: transform 34ms;
-}
-.pushable:focus:not(:focus-visible) {
-  outline: none;
-}
-@media only screen and (min-width: 600px) and (max-width: 1024px) {
-  #outputbox {
-    font-size: 100px;
-  }
-  #page {
-    font-size: 40px;
-  }
-}
-
-/* Media query for computers (landscape) */
-@media only screen and (min-width: 1025px) {
-  #outputbox {
-    font-size: 100px;
-  }
-  #page {
-    font-size: 40px;
-  }
-}
-
-/* Media query for phones (portrait and landscape) */
-@media only screen and (max-width: 599px) {
-  #outputbox {
-    font-size: 50px;
-  }
-  #page {
-    font-size: 20px;
-  }
-}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Calculator</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="calculator.css" />
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="#">upgrade your browser</a> to improve your experience.
+      </p>
+    <![endif]-->
+    <div id="page">
+      <div id="output"><p id="outputbox"></p></div>
+      <button id="enter" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front" id="enterfront">=</span>
+      </button>
+      <button id="clear" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">AC</span>
+      </button>
+      <button id="one" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">1</span>
+      </button>
+      <button id="two" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">2</span>
+      </button>
+      <button id="three" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">3</span>
+      </button>
+      <button id="four" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">4</span>
+      </button>
+      <button id="five" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">5</span>
+      </button>
+      <button id="six" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">6</span>
+      </button>
+      <button id="seven" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">7</span>
+      </button>
+      <button id="eight" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">8</span>
+      </button>
+      <button id="nine" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">9</span>
+      </button>
+      <button id="zero" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">0</span>
+      </button>
+      <button id="plus" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">+</span>
+      </button>
+      <button id="minus" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">-</span>
+      </button>
+      <button id="division" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">/</span>
+      </button>
+      <button id="multiplication" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">*</span>
+      </button>
+      <button id="dot" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">.</span>
+      </button>
+      <button id="delete" class="pushable">
+        <span class="shadow"></span>
+        <span class="edge"></span>
+        <span class="front">DE</span>
+      </button>
+    </div>
+    <script src="calculator.js" async defer></script>
+  </body>
+</html>
