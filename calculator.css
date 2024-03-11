@@ -162,6 +162,7 @@ body {
   padding-right: 30px;
   font-size: 100px;
   height: 110px;
+  lineheight: 110px;
 }
 #clear {
   grid-row: 2 / 3;
